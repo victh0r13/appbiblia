@@ -41,3 +41,6 @@ example
 # generated native folders
 /ios
 /android
+
+# Segredos locais (Supabase etc.) - .env.example fica versionado
+.env

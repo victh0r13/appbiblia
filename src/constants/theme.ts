@@ -1,65 +1,54 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Tokens de design importados do projeto Claude Design "Bíblia App".
+ * Paleta bege/terrosa, acento sépia (#A9553A no claro, #D29B72 no escuro).
  */
+export type ThemeName = 'light' | 'dark';
 
-import '@/global.css';
+export interface Theme {
+  name: ThemeName;
+  bg: string;
+  card: string;
+  ink: string;
+  sub: string;
+  line: string;
+  acc: string;
+  accSoft: string;
+  accFaint: string;
+  knob: string;
+}
 
-import { Platform } from 'react-native';
+export const LIGHT: Theme = {
+  name: 'light',
+  bg: '#F2EBDC',
+  card: '#FBF6EA',
+  ink: '#3A3125',
+  sub: '#8D8069',
+  line: 'rgba(59,50,38,0.14)',
+  acc: '#A9553A',
+  accSoft: '#A9553A26',
+  accFaint: '#A9553A14',
+  knob: '#FBF6EA',
+};
 
-export const Colors = {
-  light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
-  },
-  dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
-  },
+export const DARK: Theme = {
+  name: 'dark',
+  bg: '#181410',
+  card: '#231C15',
+  ink: '#EAE1CD',
+  sub: '#93876F',
+  line: 'rgba(234,225,205,0.13)',
+  acc: '#D29B72',
+  accSoft: '#D29B7226',
+  accFaint: '#D29B7214',
+  knob: '#FBF6EA',
+};
+
+export const themes: Record<ThemeName, Theme> = { light: LIGHT, dark: DARK };
+
+/** Família serifada do design (Literata). */
+export const serif = {
+  light: 'Literata_300Light',
+  regular: 'Literata_400Regular',
+  medium: 'Literata_500Medium',
+  semibold: 'Literata_600SemiBold',
 } as const;
-
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
-
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
-
-export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
-} as const;
-
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;

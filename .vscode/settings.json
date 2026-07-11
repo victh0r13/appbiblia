@@ -3,5 +3,13 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
+  },
+  // Os 73 JSON da Bíblia Ave Maria são dados gerados (ver o README da pasta) —
+  // ocultos do explorador para não poluir; continuam no build e no git.
+  "files.exclude": {
+    "assets/data/avemaria/*.json": true
+  },
+  "search.exclude": {
+    "assets/data/avemaria": true
   }
 }
