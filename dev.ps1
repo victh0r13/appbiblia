@@ -181,7 +181,24 @@ function Find-Serial($avdName) {
     return $null
 }
 
+# POR QUE o AVD e fixado e nao deixado por conta do CLI: sem -Avd, o `expo start`
+# + tecla `a` pega o PRIMEIRO AVD da lista, e `emulator -list-avds` ordena por
+# nome -- ou seja, Medium_Tablet vence Pixel_8 e a Biblia abre em tablet. Este
+# projeto e portrait/celular; o tablet e do outro projeto.
 $Serial = Find-Serial $Avd
+
+# Roda-se um projeto de cada vez, entao um segundo emulador ligado quase sempre
+# significa "esqueci o outro aberto". Nao mexemos nele -- todo comando daqui
+# leva -s $Serial -- mas vale avisar, porque e nessa situacao que um `expo start`
+# avulso erra de aparelho.
+$outros = @(Get-EmulatorSerials | Where-Object { $_ -ne $Serial })
+foreach ($o in $outros) {
+    $nomeOutro = Get-AvdOf $o
+    if ($nomeOutro -and $nomeOutro -ne $Avd) {
+        Write-Warn "outro emulador ligado: $nomeOutro ($o) -- este script nao toca nele"
+    }
+}
+
 if ($Serial) {
     Write-Ok "$Avd ja esta ligado ($Serial)"
     $Reusou.Add("Emulador $Avd ($Serial)")
